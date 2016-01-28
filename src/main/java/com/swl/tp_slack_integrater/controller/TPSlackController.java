@@ -1,8 +1,6 @@
 package com.swl.tp_slack_integrater.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -39,20 +37,10 @@ public class TPSlackController {
         Template previousTemplate = TEMPLATES.getIfPresent(template.webhook);
         
         if (previousTemplate != null) {
-        	Optional<String> previousState = getEntityState(previousTemplate);
-        	Optional<String> currentState = getEntityState(template);
-        	
-        	if (!previousState.isPresent() || !currentState.isPresent() || previousState.equals(currentState)) {
-        		log.info(
-        				String.format(
-        						"State not found or same as previous state in last 30 mins: Previous %s, Current %s",
-        						previousState.toString(),
-        						currentState.toString()));
-        		return;
-        	}
+        	return;
         }
         	
-        TEMPLATES.put(template.webhook, template);
+        TEMPLATES.put(template.text, template);
         
         HttpPost post = new HttpPost(template.webhook);
         post.addHeader("Content-Type", ContentType.APPLICATION_JSON.getMimeType());
@@ -61,14 +49,5 @@ public class TPSlackController {
         log.info("Pushing notification to the Slack channel.");
         
         HttpClientBuilder.create().build().execute(post);
-    }
-	
-	private Optional<String> getEntityState(Template template) {
-		final String text = template.text.toUpperCase();
-    	return Arrays
-    			.stream(EntityState.values())
-    			.map(e -> e.name().replace('_', ' '))
-    			.filter(e -> text.contains(e))
-    			.findFirst();
     }
 }
