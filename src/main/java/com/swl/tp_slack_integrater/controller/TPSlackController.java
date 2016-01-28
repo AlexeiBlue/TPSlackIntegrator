@@ -32,7 +32,7 @@ public class TPSlackController {
 		    .expireAfterWrite(30, TimeUnit.MINUTES)
 		    .build();
 	
-	@RequestMapping(value = "/proxy", method = RequestMethod.POST)
+	@RequestMapping(value = "/tp-slack-proxy", method = RequestMethod.POST)
     public void recieveTPWebhook(final @RequestBody Template template) throws IOException, ExecutionException{
         log.info(template.toString());
         
