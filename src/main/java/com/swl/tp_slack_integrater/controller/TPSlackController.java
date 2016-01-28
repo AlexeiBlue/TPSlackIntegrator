@@ -34,7 +34,7 @@ public class TPSlackController {
     public void recieveTPWebhook(final @RequestBody Template template) throws IOException, ExecutionException{
         log.info(template.toString());
         
-        Template previousTemplate = TEMPLATES.getIfPresent(template.webhook);
+        Template previousTemplate = TEMPLATES.getIfPresent(template.text);
         
         if (previousTemplate != null) {
         	return;
