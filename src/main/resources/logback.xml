@@ -8,9 +8,9 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>DocumentCollector.log</file>
+        <file>TPSlackIntegrater.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>DocumentCollector.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>TPSlackIntegrater.%d{yyyy-MM-dd}.log</FileNamePattern>
         </rollingPolicy>
 
         <encoder>
