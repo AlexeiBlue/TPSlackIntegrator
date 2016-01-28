@@ -1,14 +1,14 @@
 package com.swl.tp_slack_integrater.controller;
 
 public enum EntityState {
-	New,
-	To_Do,
-	Open,
-	Work_In_Progress,
-	Code_Review,
-	Ready_For_Test,
-	In_Test,
-	Cancelled,
-	Impeded,
-	Done;
+	NEW,
+	TO_DO,
+	OPEN,
+	WORK_IN_PROGRESS,
+	CODE_REVIEW,
+	READY_FOR_TEST,
+	IN_TEST,
+	CANCELLED,
+	IMPEDED,
+	DONE;
 }

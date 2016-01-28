@@ -13,6 +13,7 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -27,13 +28,12 @@ public class TPSlackController {
 	private static final Cache<String, Template> TEMPLATES = 
 			CacheBuilder.newBuilder()
 		    .concurrencyLevel(2)
-		    .weakKeys()
 		    .maximumSize(10000)
 		    .expireAfterWrite(30, TimeUnit.MINUTES)
 		    .build();
 	
-	@RequestMapping(value = "/", method = RequestMethod.POST)
-    public void recieveTPWebhook(Template template) throws IOException, ExecutionException{
+	@RequestMapping(value = "/proxy", method = RequestMethod.POST)
+    public void recieveTPWebhook(final @RequestBody Template template) throws IOException, ExecutionException{
         log.info(template.toString());
         
         Template previousTemplate = TEMPLATES.getIfPresent(template.webhook);
@@ -64,10 +64,11 @@ public class TPSlackController {
     }
 	
 	private Optional<String> getEntityState(Template template) {
+		final String text = template.text.toUpperCase();
     	return Arrays
     			.stream(EntityState.values())
     			.map(e -> e.name().replace('_', ' '))
-    			.filter(e -> template.text.contains(e))
+    			.filter(e -> text.contains(e))
     			.findFirst();
     }
 }
