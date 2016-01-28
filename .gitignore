@@ -1,0 +1,17 @@
+/.project
+/.classpath
+/Logs
+/.checkstyle
+.DS_Store
+/bin
+/.settings/
+target/
+/logs/
+/.metadata
+.metadata
+.settings/
+/target/
+.idea/
+*.iml
+*.iws
+/downloads/
