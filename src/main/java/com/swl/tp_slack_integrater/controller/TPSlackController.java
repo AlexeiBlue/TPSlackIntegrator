@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -32,7 +34,8 @@ public class TPSlackController {
 		    .build();
 	
 	@RequestMapping(value = "/tp-slack-proxy", method = RequestMethod.POST)
-    public void recieveTPWebhook(final @RequestBody Template template) throws IOException, ExecutionException{
+    public void recieveTPWebhook(final @RequestBody Template template, final HttpServletResponse response) throws IOException, ExecutionException{
+		response.setStatus(HttpServletResponse.SC_ACCEPTED);
 		LOGGER.info(template.toString());
         
         Template previousTemplate = TEMPLATES.getIfPresent(template.text);
