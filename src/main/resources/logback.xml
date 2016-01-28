@@ -1,26 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration scan="true">
-    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <charset>UTF-8</charset>
-            <Pattern>%d %-4relative [%thread] %-5level %logger{35} - %msg%n</Pattern>
-        </encoder>
-    </appender>
-
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>TPSlackIntegrater.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>TPSlackIntegrater.%d{yyyy-MM-dd}.log</FileNamePattern>
-        </rollingPolicy>
-
-        <encoder>
-            <charset>UTF-8</charset>
-            <pattern>%d %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
-        </encoder>
-    </appender>
-
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}/}spring.log}"/>
+    <include resource="org/springframework/boot/logging/logback/file-appender.xml" />
     <root level="INFO">
-        <appender-ref ref="consoleAppender" />
-        <appender-ref ref="FILE"/>
+        <appender-ref ref="FILE" />
     </root>
 </configuration>

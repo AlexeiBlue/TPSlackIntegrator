@@ -43,12 +43,11 @@ public class TPSlackController {
         	
         TEMPLATES.put(template.text, template);
         
+        LOGGER.info("Pushing notification to the Slack channel.");
+        
         HttpPost post = new HttpPost(template.webhook);
         post.addHeader("Content-Type", ContentType.APPLICATION_JSON.getMimeType());
         post.setEntity(new StringEntity(new ObjectMapper().writeValueAsString(template), Charsets.UTF_8));
-        
-        LOGGER.info("Pushing notification to the Slack channel.");
-        
         HttpClientBuilder.create().build().execute(post);
     }
 }
