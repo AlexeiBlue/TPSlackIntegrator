@@ -15,6 +15,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,9 +26,10 @@ import com.google.common.cache.CacheBuilder;
 
 @Log
 @Controller
+@SpringBootApplication
 @EnableAutoConfiguration
 public class Application {
-	Cache<String, Template> templates = 
+	private static final Cache<String, Template> TEMPLATES = 
 			CacheBuilder.newBuilder()
 		    .concurrencyLevel(2)
 		    .weakKeys()
@@ -39,7 +41,7 @@ public class Application {
     public void recieveTPWebhook(Template template) throws IOException, ExecutionException{
         System.out.println(template.toString());
         
-        Template previousTemplate = templates.getIfPresent(template.webhook);
+        Template previousTemplate = TEMPLATES.getIfPresent(template.webhook);
         
         if (previousTemplate != null) {
         	Optional<String> previousState = getEntityState(previousTemplate);
@@ -55,7 +57,7 @@ public class Application {
         	}
         }
         	
-        templates.put(template.webhook, template);
+        TEMPLATES.put(template.webhook, template);
         
         HttpPost post = new HttpPost(template.webhook);
         post.addHeader("Content-Type", ContentType.APPLICATION_JSON.getMimeType());
@@ -66,15 +68,15 @@ public class Application {
         HttpClientBuilder.create().build().execute(post);
     }
 
-    public static void main(String[] args) throws Exception {
-        SpringApplication.run(Application.class, args);
-    }
-    
     private Optional<String> getEntityState(Template template) {
     	return Arrays
     			.stream(EntityState.values())
     			.map(e -> e.name().replace('_', ' '))
     			.filter(e -> template.text.contains(e))
     			.findFirst();
+    }
+    
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(Application.class, args);
     }
 }
