@@ -1,4 +1,4 @@
-package com.swl.tp_slack_integrater;
+package com.swl.tp_slack_integrater.controller;
 
 import lombok.ToString;
 
