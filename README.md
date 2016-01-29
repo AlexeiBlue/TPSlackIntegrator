@@ -1,7 +1,7 @@
 # TP Slack Integrator
 An integrator between Target Process and Slack that controls the flow of messages to reduce noise.  Uses a simple cache by using the text that is sent to slack as the key so that repeat messages aren't constantly sent.
 
-The following project is a simple spring boot application that starts up on port 9100.  This can be reconfigured in the application.prooperties file.
+The following project is a simple spring boot application that starts up on port 9100.  This can be reconfigured in the application.properties file.
 
 Please see the following wiki for setup:
 
