@@ -22,4 +22,4 @@ Remember to open the port (9100 default) to your firewall to allow traffic throu
 ### Before
 ![Before - TP Slack Integration](http://content.screencast.com/users/AlexeiBlue/folders/Jing/media/d406d3d8-2822-49e6-acdd-1b56d23bb33c/2016-01-29_1442.png)
 ### After
-![After - TP Slack Integration](http://content.screencast.com/users/AlexeiBlue/folders/Jing/media/62f1b243-bfa2-4c4c-af8f-797a9dcc015f/2016-01-29_1449.png)
+![After - TP Slack Integration](http://content.screencast.com/users/AlexeiBlue/folders/Jing/media/b11d0248-f777-44f8-8b90-ed5b22404a22/2016-01-29_1449.png)
