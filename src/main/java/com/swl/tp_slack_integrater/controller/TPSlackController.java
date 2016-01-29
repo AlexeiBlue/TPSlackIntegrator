@@ -4,18 +4,19 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Charsets;
@@ -34,8 +35,9 @@ public class TPSlackController {
 		    .build();
 	
 	@RequestMapping(value = "/tp-slack-proxy", method = RequestMethod.POST)
-    public void recieveTPWebhook(final @RequestBody Template template, final HttpServletResponse response) throws IOException, ExecutionException{
-		response.setStatus(HttpServletResponse.SC_ACCEPTED);
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+    public void recieveTPWebhook(final @RequestBody Template template) throws IOException, ExecutionException{
 		LOGGER.info(template.toString());
         
         Template previousTemplate = TEMPLATES.getIfPresent(template.text);
