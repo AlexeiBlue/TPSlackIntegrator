@@ -1,6 +1,7 @@
 package com.swl.tp_slack_integrater.controller;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -42,7 +43,7 @@ public class TPSlackController {
         
         Template previousTemplate = TEMPLATES.getIfPresent(template.text);
         
-        if (previousTemplate != null) {
+        if (Objects.nonNull(previousTemplate)) {
         	return;
         }
         	
